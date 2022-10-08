@@ -16,6 +16,10 @@ body {
   display: none;
 }
 
+#details {
+  text-align: center;
+}
+
 .canvas-wrapper {
   text-align: center;
 }
