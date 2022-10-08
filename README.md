@@ -2,6 +2,8 @@
 
 The app will capture images and then apply deep learning to identify and classify objects in the image.
 
+Try it on [REPLIT.com](https://replit.com/@apatterson189/AI-Camera)
+
 Requirements:
 
 - [ ] gmail account
