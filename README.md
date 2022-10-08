@@ -2,7 +2,11 @@
 
 The app will capture images and then apply deep learning to identify and classify objects in the image.
 
-Try it on [REPLIT.com](https://replit.com/@apatterson189/AI-Camera)
+Try it running on [Firebase](https://ai-camera-95fdb.web.app/)
+
+Make your own with [REPLIT.com](https://replit.com/@apatterson189/AI-Camera)
+
+Follow the instructions below to build your own!
 
 Requirements:
 
