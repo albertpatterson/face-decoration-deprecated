@@ -1,6 +1,6 @@
 # Make Your Own Artificial Intelligence Driven Web App
 
-The app will capture images and then apply deep learning to identify and classify objects in the image.
+The app will capture images and then apply artificial intelligence to identify objects in the image.
 
 Try it running on [Firebase](https://ai-camera-95fdb.web.app/)
 
@@ -14,12 +14,46 @@ Requirements:
 - [ ] webcam
 - [ ] internet connection
 
-## Initial
+## Discover the Requirements
+
+What are we trying to build, and what should our app be able to do? Before we can build something, we should have a goal in mind.
+
+For this project, we can start with a high level, abstract goal of "Create an app that identifies objects," but a complicated goal like that should be broken it into smaller, more specific requirements.
+
+1. Capture images from the camera
+1. Identify the objects in the image
+1. Label the images in the image
+1. Make the app available for anyone to use
+
+It would be very difficult to understand how to acheive the abstract goal, but by breaking it into smaller, more specific requirements, we make it much easier to understand how to solve the problem.
+
+## Design a Solution
+
+Now that we know what the specific requirements are, we can start designing a solution and researching techniques to satisfy each of the requirements. Before we can start coding, we need to break the problem down into tasks based on the the specific requirements that we just discovered.
+
+For example, when researching how to capture images from the camera, we might come across the article [Taking still photos with getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Taking_still_photos#).
+
+Similarly, our research into identifying objects in an image would reveal that a popular way of accomplishing this is via artificial intelligence and and that there are a variety of free models such as the free tensorflow.js [object detection model](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd) that we can use.
+
+To add labels to the image we capture, we will find that the [canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial) element will allow us to do so easily.
+
+Finally, to make the app available, the easiest way to do so is via a cloud provider and [Firebase](https://firebase.google.com/) is incredibly easy to get started.
+
+Thus we can solve the problem with the following steps:
+
+1. Create a [Firebase](https://firebase.google.com/) app that we will gradually build out
+1. Update the app to capture images like in [Taking still photos with getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Taking_still_photos#)
+1. Add the AI model to detect objects in the captured images using the free [object detection model](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd)
+1. Finally, use predictions from the model and the captured image to draw the image with labels on the [canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial) element
+
+Now that we have a design, we can start coding our app!
+
+## Get Ready to Code
 
 1. Fork this REPL <br>![fork REPL](./doc/fork.gif 'Fork REPL')
 1. Clean up any previous solutions with the provided script; just run `npm run step-0`
 
-## Firebase
+## Setup Firebase
 
 To serve and eventually host our app, we will use [Firebase](https://firebase.google.com/).
 
