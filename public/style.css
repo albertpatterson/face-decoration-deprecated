@@ -2,12 +2,26 @@ body {
   margin: 0;
 }
 
-.video-wrapper {
+#title {
+  text-align: center;
+}
+
+#launch-button {
+  margin: 0 auto;
+  font-size: 24px;
+  display: block;
+}
+
+#camera-app {
   display: none;
 }
 
-.canvas {
-  max-width: 100vw;
+.canvas-wrapper {
+  text-align: center;
+}
+
+.video-wrapper {
+  display: none;
 }
 
 #loading-indicator {

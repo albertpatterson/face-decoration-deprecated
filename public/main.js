@@ -1,9 +1,20 @@
 let model = null;
+getModel();
 
-(async () => {
+let launched = false;
+async function launchCamera() {
+  if (launched) {
+    return;
+  }
+  launched = true;
+
+  clearLaunchButton();
+
+  const app = document.getElementById('camera-app');
   const video = document.getElementById('video');
   const canvas = document.getElementById('canvas');
-  getModel();
+
+  app.style.display = 'block';
 
   const stream = await getVideoStream();
   video.srcObject = stream;
@@ -14,7 +25,7 @@ let model = null;
 
   clearLoading();
   takepictures(video, canvas, model);
-})();
+}
 
 async function getVideoStream() {
   try {
@@ -113,4 +124,9 @@ function getModel() {
 function clearLoading() {
   const loadingIndicator = document.getElementById('loading-indicator');
   loadingIndicator.parentElement.removeChild(loadingIndicator);
+}
+
+function clearLaunchButton() {
+  const launchButton = document.getElementById('launch-button');
+  launchButton.parentElement.removeChild(launchButton);
 }

@@ -8,28 +8,34 @@
     <title>AI Camera</title>
   </head>
   <body>
-    <div id="loading-indicator">
-      <h1>Loading</h1>
-      <div class="lds-spinner">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+    <h1 id="title">AI Camera</h1>
+
+    <button onclick="launchCamera()" id="launch-button">Launch Camera</button>
+
+    <div id="camera-app">
+      <div id="loading-indicator">
+        <h1>Loading</h1>
+        <div class="lds-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
-    </div>
-    <div class="canvas-wrapper">
-      <canvas id="canvas"></canvas>
-    </div>
-    <div class="video-wrapper">
-      <video id="video"></video>
+      <div class="canvas-wrapper">
+        <canvas id="canvas"></canvas>
+      </div>
+      <div class="video-wrapper">
+        <video id="video"></video>
+      </div>
     </div>
 
     <!-- Load TensorFlow.js. This is required to use coco-ssd model. -->
