@@ -3,7 +3,15 @@
   "version": "1.0.0",
   "description": "Augment the video from a camera with image classification",
   "scripts": {
-    "start": "http-server example -p 5000 -o -c-1"
+    "start": "http-server example -p 5000 -o -c-1",
+    "step-0": "node ./step/init.js",
+    "step-1": "firebase login",
+    "step-2": "firebase init",
+    "step-3": "firebase serve -o 0.0.0.0",
+    "step-4": "firebase deploy",
+    "step-5": "node ./step/clone_image_capture_app.js",
+    "step-6": "firebase serve -o 0.0.0.0",
+    "step-7": "firebase deploy"
   },
   "keywords": [],
   "author": "",
