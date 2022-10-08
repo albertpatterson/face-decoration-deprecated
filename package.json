@@ -2,9 +2,8 @@
   "name": "ai-camera",
   "version": "1.0.0",
   "description": "Augment the video from a camera with image classification",
-  "main": "index.js",
   "scripts": {
-    "start": "http-server public -p 5000 -o -c-1"
+    "start": "http-server example -p 5000 -o -c-1"
   },
   "keywords": [],
   "author": "",
