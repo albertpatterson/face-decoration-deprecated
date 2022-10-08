@@ -12,6 +12,16 @@ body {
   display: block;
 }
 
+#extra-loading-info {
+  display: none;
+  text-align: center;
+}
+
+#error {
+  text-align: center;
+  color: red;
+}
+
 #camera-app {
   display: none;
 }

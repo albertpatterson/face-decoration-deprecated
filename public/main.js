@@ -3,28 +3,32 @@ getModel();
 
 let launched = false;
 async function launchCamera() {
-  if (launched) {
-    return;
+  try {
+    if (launched) {
+      return;
+    }
+    launched = true;
+
+    startLoading();
+
+    const app = document.getElementById('camera-app');
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+
+    app.style.display = 'block';
+
+    const stream = await getVideoStream();
+    video.srcObject = stream;
+
+    await initiateVideoAndCanvas(video, canvas);
+
+    const model = await getModel();
+
+    clearLoading();
+    takepictures(video, canvas, model);
+  } catch (error) {
+    document.getElementById('error').innerText = error.message;
   }
-  launched = true;
-
-  clearLaunchButton();
-
-  const app = document.getElementById('camera-app');
-  const video = document.getElementById('video');
-  const canvas = document.getElementById('canvas');
-
-  app.style.display = 'block';
-
-  const stream = await getVideoStream();
-  video.srcObject = stream;
-
-  await initiateVideoAndCanvas(video, canvas);
-
-  const model = await getModel();
-
-  clearLoading();
-  takepictures(video, canvas, model);
 }
 
 async function getVideoStream() {
@@ -121,12 +125,21 @@ function getModel() {
   });
 }
 
-function clearLoading() {
-  const loadingIndicator = document.getElementById('loading-indicator');
-  loadingIndicator.parentElement.removeChild(loadingIndicator);
+let extraLoadingInfoTimeout = null;
+function startLoading() {
+  clearLaunchButton();
+  extraLoadingInfoTimeout = setTimeout(() => {
+    document.getElementById('extra-loading-info').style.display = 'block';
+  }, 10e3);
 }
 
 function clearLaunchButton() {
   const launchButton = document.getElementById('launch-button');
   launchButton.parentElement.removeChild(launchButton);
+}
+
+function clearLoading() {
+  clearTimeout(extraLoadingInfoTimeout);
+  const loadingIndicator = document.getElementById('loading-indicator');
+  loadingIndicator.parentElement.removeChild(loadingIndicator);
 }
