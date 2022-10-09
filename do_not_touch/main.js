@@ -1,8 +1,9 @@
+import { getBBox } from '../edit/get_bbox';
+import { drawFacePoints } from './util';
 let model = null;
-getModel();
 
 let launched = false;
-async function launchCamera() {
+window.launchCamera = async function () {
   try {
     if (launched) {
       return;
@@ -29,24 +30,26 @@ async function launchCamera() {
   } catch (error) {
     document.getElementById('error').innerText = error.message;
   }
-}
+};
+getModel();
+
+(async () => {
+  const model = await getModel();
+  const rockImg = document.getElementById('the-rock');
+  const testCanvas = document.getElementById('test-canvas');
+  const loadingTestCanvas = document.getElementById('loading-test-canvas');
+  testCanvas.height = rockImg.height;
+  testCanvas.width = rockImg.width;
+  takepictures(rockImg, testCanvas, model, false, true);
+  loadingTestCanvas.parentElement.removeChild(loadingTestCanvas);
+  testCanvas.style.display = 'flex';
+})();
 
 async function getVideoStream() {
-  try {
-    return await navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode: {
-          exact: 'environment',
-        },
-      },
-      audio: false,
-    });
-  } catch {
-    return await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: false,
-    });
-  }
+  return await navigator.mediaDevices.getUserMedia({
+    video: true,
+    audio: false,
+  });
 }
 
 function initiateVideoAndCanvas(video, canvas) {
@@ -78,8 +81,8 @@ function initiateVideoAndCanvas(video, canvas) {
 }
 
 function getCanvasSize(video) {
-  const vWidth = video.videoWidth;
-  const vHeight = video.videoHeight;
+  const vWidth = video.videoWidth ?? video.width;
+  const vHeight = video.videoHeight ?? video.height;
 
   const aspectRatio = vHeight / vWidth;
 
@@ -90,7 +93,13 @@ function getCanvasSize(video) {
   return { height, width, scale };
 }
 
-async function takepictures(video, canvas, model) {
+async function takepictures(
+  video,
+  canvas,
+  model,
+  stream = true,
+  markKeypoints = false
+) {
   const context = canvas.getContext('2d');
 
   const { height, width, scale } = getCanvasSize(video);
@@ -99,9 +108,15 @@ async function takepictures(video, canvas, model) {
   context.drawImage(video, 0, 0, width, height);
   drawOnFace(context, faces[0], scale);
 
-  setTimeout(() => {
-    takepictures(video, canvas, model, false);
-  }, 100);
+  if (markKeypoints) {
+    drawFacePoints(context, faces[0]);
+  }
+
+  if (stream) {
+    requestAnimationFrame(() => {
+      takepictures(video, canvas, model, stream, markKeypoints);
+    });
+  }
 }
 
 async function getPredictions(video, model) {
@@ -110,91 +125,16 @@ async function getPredictions(video, model) {
   return faces;
 }
 
-const sillyLips = document.getElementById('silly-lips');
-const sunglasses = document.getElementById('sunglasses');
-const sillySmile = document.getElementById('silly-smile');
+const decoration = document.getElementById('decoration');
 
 function drawOnFace(context, face, scale) {
   if (!face) {
     return;
   }
 
-  const smileBBox = getSmileBBox(face);
+  const bBox = getBBox(face);
 
-  context.drawImage(
-    sillySmile,
-    smileBBox.x,
-    smileBBox.y,
-    smileBBox.width,
-    smileBBox.height
-  );
-
-  const sunglassesBBox = getSunglassesBBox(face);
-
-  context.drawImage(
-    sunglasses,
-    sunglassesBBox.x,
-    sunglassesBBox.y,
-    sunglassesBBox.width,
-    sunglassesBBox.height
-  );
-}
-
-function getSunglassesBBox(face) {
-  const leftEye = getfacePoint(face, 'leftEye');
-  const rightEye = getfacePoint(face, 'rightEye');
-  const rawWidth = rightEye.x - leftEye.x;
-  const width = 2.5 * rawWidth;
-  const offset = 0.5 * (width - rawWidth);
-
-  const x = leftEye.x - offset;
-  const y = leftEye.y - 20;
-  const height = 40;
-
-  return { x, y, height, width };
-}
-
-function getLipsBBox(face) {
-  const leftEye = getfacePoint(face, 'leftEye');
-  const rightEye = getfacePoint(face, 'rightEye');
-  const mouthCenter = getfacePoint(face, 'mouthCenter');
-  const rawWidth = rightEye.x - leftEye.x;
-  const width = 1.25 * rawWidth;
-  const offset = 0.5 * (width - rawWidth);
-
-  const x = leftEye.x - offset;
-  const y = mouthCenter.y - 20;
-  const height = 40;
-
-  return { x, y, height, width };
-}
-
-function getSmileBBox(face) {
-  const leftEye = getfacePoint(face, 'leftEye');
-  const rightEye = getfacePoint(face, 'rightEye');
-  const mouthCenter = getfacePoint(face, 'mouthCenter');
-  const rawWidth = rightEye.x - leftEye.x;
-  const width = 1.25 * rawWidth;
-  const offset = 0.5 * (width - rawWidth);
-
-  const x = leftEye.x - offset;
-  const y = mouthCenter.y - 20;
-  const height = 40;
-
-  return { x, y, height, width };
-}
-
-function getfacePoint(face, name) {
-  const part = face.keypoints.find((keypoint) => keypoint.name === name);
-  if (!part) {
-    throw new Error(`part named "${name} not found`);
-  }
-
-  return part;
-}
-
-function drawPoint(context, x, y) {
-  context.fillRect(x, y, 10, 10);
+  context.drawImage(decoration, bBox.x, bBox.y, bBox.width, bBox.height);
 }
 
 async function getModel() {

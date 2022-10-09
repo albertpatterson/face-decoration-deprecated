@@ -3,15 +3,7 @@
   "version": "1.0.0",
   "description": "Augment the video from a camera with image classification",
   "scripts": {
-    "start": "http-server example -p 5000 -o -c-1",
-    "step-0": "node ./step/init.js",
-    "step-1": "firebase login",
-    "step-2": "firebase init",
-    "step-3": "firebase serve -o 0.0.0.0",
-    "step-4": "firebase deploy",
-    "step-5": "node ./step/clone_image_capture_app.js",
-    "step-6": "firebase serve -o 0.0.0.0",
-    "step-7": "firebase deploy"
+    "start": "parcel do_not_touch/index.html --no-cache"
   },
   "repository": {
     "type": "git",
@@ -22,10 +14,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "firebase-tools": "^11.14.1",
-    "fs-extra": "^10.1.0",
-    "http-server": "^14.1.1",
-    "simple-git": "^3.14.1"
+    "parcel": "^2.7.0"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.7.0"
+  }
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.scss" />
     <title>AI Camera</title>
   </head>
   <body>
@@ -47,9 +47,9 @@
 
     <div id="details">
       <p>
-        Stream live video from the camera and label objects using a free
+        Stream live video from the camera and decorate faces using a free
         <a
-          href="https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd"
+          href="https://github.com/tensorflow/tfjs-models/tree/master/face-detection"
         >
           Tensorflow.js model</a
         >.
@@ -63,9 +63,28 @@
       </p>
     </div>
 
-    <image id="silly-lips" src="silly_lips.svg"></image>
-    <image id="sunglasses" src="sunglasses.svg"></image>
-    <image id="silly-smile" src="silly_smile.svg"></image>
+    <div id="test">
+      <img id="decoration" src="../edit/decoration.png"></img>
+      <img id="the-rock" src="the_rock.jpeg"></img>
+      <canvas id="test-canvas"></canvas>
+      <div id="loading-test-canvas">
+        <div class="lds-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+
 
     <!-- Require the peer dependencies of face-detection. -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_detection"></script>
@@ -77,6 +96,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-detection"></script>
 
-    <script src="main.js"></script>
+    <script src="main.js" type="module"></script>
   </body>
 </html>

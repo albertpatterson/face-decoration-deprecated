@@ -30,6 +30,27 @@ body {
   text-align: center;
 }
 
+#test {
+  display: flex;
+  width: 100%;
+  img {
+    overflow: hidden;
+    flex: 1;
+    object-fit: contain;
+  }
+}
+
+#test-canvas {
+  display: none;
+}
+
+#loading-test-canvas {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .canvas-wrapper {
   text-align: center;
 }
