@@ -94,35 +94,120 @@ async function takepictures(video, canvas, model) {
   const context = canvas.getContext('2d');
 
   const { height, width, scale } = getCanvasSize(video);
+  const faces = await getPredictions(video, model);
+
   context.drawImage(video, 0, 0, width, height);
-
-  const predictions = await model.detect(video);
-
-  for (const prediction of predictions) {
-    const [xRaw, yRaw, heightRaw, widthRaw] = prediction.bbox;
-    const x = xRaw * scale;
-    const y = yRaw * scale;
-    const height = heightRaw * scale;
-    const width = widthRaw * scale;
-    context.strokeRect(x, y, height, width);
-    context.fillText(prediction.class, x + 5, y + 25);
-  }
+  drawOnFace(context, faces[0], scale);
 
   setTimeout(() => {
     takepictures(video, canvas, model, false);
-  }, 0);
+  }, 100);
 }
 
-function getModel() {
-  return new Promise((resolve) => {
-    if (model) {
-      resolve(model);
-    }
-    cocoSsd.load().then((loadedModel) => {
-      model = loadedModel;
-      resolve(model);
-    });
-  });
+async function getPredictions(video, model) {
+  const estimationConfig = { flipHorizontal: false };
+  const faces = await model.estimateFaces(video, estimationConfig);
+  return faces;
+}
+
+const sillyLips = document.getElementById('silly-lips');
+const sunglasses = document.getElementById('sunglasses');
+const sillySmile = document.getElementById('silly-smile');
+
+function drawOnFace(context, face, scale) {
+  if (!face) {
+    return;
+  }
+
+  const smileBBox = getSmileBBox(face);
+
+  context.drawImage(
+    sillySmile,
+    smileBBox.x,
+    smileBBox.y,
+    smileBBox.width,
+    smileBBox.height
+  );
+
+  const sunglassesBBox = getSunglassesBBox(face);
+
+  context.drawImage(
+    sunglasses,
+    sunglassesBBox.x,
+    sunglassesBBox.y,
+    sunglassesBBox.width,
+    sunglassesBBox.height
+  );
+}
+
+function getSunglassesBBox(face) {
+  const leftEye = getfacePoint(face, 'leftEye');
+  const rightEye = getfacePoint(face, 'rightEye');
+  const rawWidth = rightEye.x - leftEye.x;
+  const width = 2.5 * rawWidth;
+  const offset = 0.5 * (width - rawWidth);
+
+  const x = leftEye.x - offset;
+  const y = leftEye.y - 20;
+  const height = 40;
+
+  return { x, y, height, width };
+}
+
+function getLipsBBox(face) {
+  const leftEye = getfacePoint(face, 'leftEye');
+  const rightEye = getfacePoint(face, 'rightEye');
+  const mouthCenter = getfacePoint(face, 'mouthCenter');
+  const rawWidth = rightEye.x - leftEye.x;
+  const width = 1.25 * rawWidth;
+  const offset = 0.5 * (width - rawWidth);
+
+  const x = leftEye.x - offset;
+  const y = mouthCenter.y - 20;
+  const height = 40;
+
+  return { x, y, height, width };
+}
+
+function getSmileBBox(face) {
+  const leftEye = getfacePoint(face, 'leftEye');
+  const rightEye = getfacePoint(face, 'rightEye');
+  const mouthCenter = getfacePoint(face, 'mouthCenter');
+  const rawWidth = rightEye.x - leftEye.x;
+  const width = 1.25 * rawWidth;
+  const offset = 0.5 * (width - rawWidth);
+
+  const x = leftEye.x - offset;
+  const y = mouthCenter.y - 20;
+  const height = 40;
+
+  return { x, y, height, width };
+}
+
+function getfacePoint(face, name) {
+  const part = face.keypoints.find((keypoint) => keypoint.name === name);
+  if (!part) {
+    throw new Error(`part named "${name} not found`);
+  }
+
+  return part;
+}
+
+function drawPoint(context, x, y) {
+  context.fillRect(x, y, 10, 10);
+}
+
+async function getModel() {
+  if (model) {
+    return model;
+  }
+
+  const factory = faceDetection.SupportedModels.MediaPipeFaceDetector;
+  const detectorConfig = {
+    runtime: 'tfjs',
+  };
+  model = await faceDetection.createDetector(factory, detectorConfig);
+  return model;
 }
 
 let extraLoadingInfoTimeout = null;
