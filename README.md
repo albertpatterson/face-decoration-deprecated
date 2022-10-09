@@ -33,7 +33,9 @@ Make your own with [REPLIT.com](https://replit.com/@apatterson189/AI-Camera)
    ```
 1. The bounding box should return the following data:
 
-- x: the x coordinate of the top left corner of the decoration
-- y: the y coordinate of the top left corner of the decoration
-- width: the width of the decoration
-- height: the height of the decoration
+   - x: the x coordinate of the top left corner of the decoration
+   - y: the y coordinate of the top left corner of the decoration
+   - width: the width of the decoration
+   - height: the height of the decoration
+
+1. You can use the provided example to check if your calculation is correct
