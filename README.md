@@ -2,7 +2,7 @@
 
 The app will capture video and then apply artificial intelligence to decorate your face.
 
-Make your own with [REPLIT.com](https://replit.com/@apatterson189/AI-Camera)
+Make your own with [REPLIT.com](https://replit.com/@apatterson189/face-decoration)
 
 ## Create your own
 
