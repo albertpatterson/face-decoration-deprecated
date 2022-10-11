@@ -106,10 +106,14 @@ async function takepictures(
   const faces = await getPredictions(video, model);
 
   context.drawImage(video, 0, 0, width, height);
-  drawOnFace(context, faces[0], scale);
+  for (const face of faces) {
+    drawOnFace(context, face, scale);
+  }
 
   if (markKeypoints) {
-    drawFacePoints(context, faces[0]);
+    for (const face of faces) {
+      drawFacePoints(context, face);
+    }
   }
 
   if (stream) {
@@ -145,6 +149,7 @@ async function getModel() {
   const factory = faceDetection.SupportedModels.MediaPipeFaceDetector;
   const detectorConfig = {
     runtime: 'tfjs',
+    maxFaces: 10,
   };
   model = await faceDetection.createDetector(factory, detectorConfig);
   return model;
