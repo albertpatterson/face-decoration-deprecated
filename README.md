@@ -4,6 +4,8 @@ The app will capture video and then apply artificial intelligence to decorate yo
 
 Make your own with [REPLIT.com](https://replit.com/@apatterson189/face-decoration)
 
+![Demo](./doc/demo.gif 'Demo')
+
 ## Create your own
 
 1. Create a png image to use as the decoration. Any app that allows you to create png files will work fine. The default decoration uses Google Drawings to make simple [sunglasses](https://docs.google.com/drawings/d/1k2MwpDjihT9NPSYpl2-Tn-whb9s2UMe-R5D7QDCNZAs/edit?usp=sharing). A few options:
