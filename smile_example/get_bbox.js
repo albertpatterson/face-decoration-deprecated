@@ -1,16 +1,25 @@
 import { getFacePoint } from '../do_not_touch/util';
 
+// When looking face to face at a person, they are facing
+// in the opposite direction from you, so their right side
+// is on your left, the face keypoints from your
+// perspective are arranged as follows
+//
+//                rightEye   leftEye
+// rightEarTragion    noseTip    leftEarTragion
+//                  mouthCenter
+
 export function getBBox(face) {
   const leftEye = getFacePoint(face, 'leftEye');
   const rightEye = getFacePoint(face, 'rightEye');
   const mouthCenter = getFacePoint(face, 'mouthCenter');
-  const rawWidth = rightEye.x - leftEye.x;
+  const rawWidth = leftEye.x - rightEye.x;
   const width = 1.75 * rawWidth;
   const offset = 0.5 * (width - rawWidth);
 
-  const x = leftEye.x - offset;
-  const y = mouthCenter.y - 20;
-  const height = 40;
+  const x = rightEye.x - offset;
+  const height = width / 2;
+  const y = mouthCenter.y - height / 2;
 
   return { x, y, height, width };
 }
