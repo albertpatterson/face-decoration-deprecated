@@ -57,7 +57,6 @@ export async function takepictures(
   const context = canvas.getContext('2d');
 
   const { height, width, scale } = getCanvasSize(video);
-  console.log({ height, width, scale });
   const faces = await getPredictions(video, model);
 
   context.drawImage(video, 0, 0, width, height);

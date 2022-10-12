@@ -21,7 +21,5 @@ export function getBBox(face) {
   const y = rightEar.y - 0.6 * height;
 
   const bbox = { x, y, height, width };
-  console.log(bbox);
-
   return bbox;
 }

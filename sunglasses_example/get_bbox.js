@@ -20,7 +20,5 @@ export function getBBox(face) {
   const height = width / 3;
   const y = rightEye.y - height / 2;
 
-  console.log({ x, y, height, width });
-
   return { x, y, height, width };
 }
