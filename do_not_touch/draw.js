@@ -3,27 +3,16 @@ import { drawFacePoints } from './util';
 import { getPredictions } from './model';
 
 export function initiateVideoAndCanvas(video, canvas) {
-  const done = new Promise((res) => {
-    const handler = () => {
-      sizeVideoAndCanvas(video, canvas);
+  return video.play().then(() => {
+    sizeVideoAndCanvas(video, canvas);
 
-      const context = canvas.getContext('2d');
-      context.font = '36px serif';
-      context.fontWeight = 'bold';
-      context.strokeStyle = 'green';
-      context.fillStyle = 'green';
-      context.lineWidth = 5;
-
-      video.removeEventListener('canplay', handler, false);
-      res();
-    };
-
-    video.addEventListener('canplay', handler, false);
+    const context = canvas.getContext('2d');
+    context.font = '36px serif';
+    context.fontWeight = 'bold';
+    context.strokeStyle = 'green';
+    context.fillStyle = 'green';
+    context.lineWidth = 5;
   });
-
-  video.play();
-
-  return done;
 }
 
 export function sizeVideoAndCanvas(video, canvas) {

@@ -1,4 +1,4 @@
-import { getVideoStream } from './camera';
+import { getVideo } from './camera';
 import { getModel } from './model';
 import {
   initiateVideoAndCanvas,
@@ -17,13 +17,10 @@ window.launchCamera = async function () {
     startLoading();
 
     const app = document.getElementById('camera-app');
-    const video = document.getElementById('video');
+    const video = await getVideo();
     const canvas = document.getElementById('canvas');
 
     app.style.display = 'block';
-
-    const stream = await getVideoStream();
-    video.srcObject = stream;
 
     window.addEventListener('resize', () => sizeVideoAndCanvas(video, canvas));
     await initiateVideoAndCanvas(video, canvas);
