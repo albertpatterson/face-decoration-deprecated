@@ -1,3 +1,5 @@
+import { config } from '../edit/config';
+
 export async function getVideoStream() {
   return await navigator.mediaDevices.getUserMedia({
     video: true,
@@ -23,9 +25,8 @@ export async function getExampleVideo() {
   return video;
 }
 
-const showUser = false;
 export async function getVideo() {
-  if (showUser) {
+  if (config.showUser) {
     return await getCameraVideo();
   }
 

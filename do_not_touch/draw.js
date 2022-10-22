@@ -1,7 +1,4 @@
-// import { getDrawProps } from '../edit/get_draw_props';
-import { getDrawProps } from '../shopkin_example/get_draw_props';
-// import { getDrawProps } from '../smile_example/get_draw_props';
-
+import { config } from '../edit/config';
 import { drawFacePoints } from './util';
 import { getPredictions } from './model';
 
@@ -76,7 +73,7 @@ function drawOnFace(context, face, scale) {
     return;
   }
 
-  const { xCenter, yCenter, width, height, angle } = getDrawProps(face);
+  const { xCenter, yCenter, width, height, angle } = config.getDrawProps(face);
   drawImageCenter(context, decoration, xCenter, yCenter, width, height, angle);
 }
 

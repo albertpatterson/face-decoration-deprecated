@@ -5,6 +5,10 @@ import {
   takepictures,
   sizeVideoAndCanvas,
 } from './draw';
+import { config } from '../edit/config';
+
+const decoration = document.getElementById('decoration');
+decoration.src = config.imgSrc;
 
 let launched = false;
 window.launchCamera = async function () {
