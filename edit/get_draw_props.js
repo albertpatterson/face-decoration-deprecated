@@ -12,16 +12,18 @@ import { getFacePoint, getAngle } from '../do_not_touch/util';
 export function getDrawProps(face) {
   const leftEye = getFacePoint(face, 'leftEye');
   const rightEye = getFacePoint(face, 'rightEye');
-  const rawWidth = leftEye.x - rightEye.x;
-  const width = 2.5 * rawWidth;
+  const leftEar = getFacePoint(face, 'leftEarTragion');
+  const rightEar = getFacePoint(face, 'rightEarTragion');
+  const rawWidth = leftEar.x - rightEar.x;
+  const width = rawWidth;
 
   const xCenter = (rightEye.x + leftEye.x) / 2;
   const yCenter = (rightEye.y + leftEye.y) / 2;
   const height = width / 3;
-  const eyeXDistance = rawWidth;
-  const eyeYDistance = leftEye.y - rightEye.y;
+  const earXDistance = rawWidth;
+  const earYDistance = leftEar.y - rightEar.y;
 
-  const angle = getAngle(eyeXDistance, eyeYDistance);
+  const angle = getAngle(earXDistance, earYDistance);
 
   return { xCenter, yCenter, width, height, angle };
 }

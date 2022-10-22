@@ -15,7 +15,7 @@ import { getDrawProps } from '../edit/get_draw_props';
 // import { getDrawProps } from '../sunglasses_example/get_draw_props';
 
 // show the user? shows a single video if not
-const showUser = true;
+const showUser = false;
 
 // DO NOT EDIT //
 export const config = {

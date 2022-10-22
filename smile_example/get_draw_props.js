@@ -10,19 +10,20 @@ import { getFacePoint, getAngle } from '../do_not_touch/util';
 //                  mouthCenter
 
 export function getDrawProps(face) {
-  const leftEye = getFacePoint(face, 'leftEye');
-  const rightEye = getFacePoint(face, 'rightEye');
+  const leftEar = getFacePoint(face, 'leftEarTragion');
+  const rightEar = getFacePoint(face, 'rightEarTragion');
   const mouthCenter = getFacePoint(face, 'mouthCenter');
-  const rawWidth = leftEye.x - rightEye.x;
-  const width = 1.75 * rawWidth;
+
+  const rawWidth = leftEar.x - rightEar.x;
+  const width = 0.75 * rawWidth;
   const height = width / 2;
   const xCenter = mouthCenter.x;
   const yCenter = mouthCenter.y;
 
-  const eyeXDistance = rawWidth;
-  const eyeYDistance = leftEye.y - rightEye.y;
+  const earXDistance = rawWidth;
+  const earYDistance = leftEar.y - rightEar.y;
 
-  const angle = getAngle(eyeXDistance, eyeYDistance);
+  const angle = getAngle(earXDistance, earYDistance);
 
   return { xCenter, yCenter, width, height, angle };
 }
