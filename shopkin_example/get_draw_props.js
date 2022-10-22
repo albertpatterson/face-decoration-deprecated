@@ -1,4 +1,4 @@
-import { getFacePoint } from '../do_not_touch/util';
+import { getFacePoint, getAngle } from '../do_not_touch/util';
 
 // When looking face to face at a person, they are facing
 // in the opposite direction from you, so their right side
@@ -9,17 +9,20 @@ import { getFacePoint } from '../do_not_touch/util';
 // rightEarTragion    noseTip    leftEarTragion
 //                  mouthCenter
 
-export function getBBox(face) {
+export function getDrawProps(face) {
   const leftEar = getFacePoint(face, 'leftEarTragion');
   const rightEar = getFacePoint(face, 'rightEarTragion');
   const rawWidth = leftEar.x - rightEar.x;
   const width = 1.75 * rawWidth;
-  const offset = (width - rawWidth) / 2;
-
-  const x = rightEar.x - offset;
   const height = width;
-  const y = rightEar.y - 0.6 * height;
 
-  const bbox = { x, y, height, width };
-  return bbox;
+  const xCenter = (rightEar.x + leftEar.x) / 2;
+  const yCenter = (rightEar.y + leftEar.y) / 2;
+
+  const earXDistance = rawWidth;
+  const earYDistance = leftEar.y - rightEar.y;
+
+  const angle = getAngle(earXDistance, earYDistance);
+
+  return { xCenter, yCenter, width, height, angle };
 }

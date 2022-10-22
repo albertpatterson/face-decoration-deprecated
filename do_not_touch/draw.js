@@ -1,4 +1,7 @@
-import { getBBox } from '../edit/get_bbox';
+// import { getDrawProps } from '../edit/get_draw_props';
+import { getDrawProps } from '../shopkin_example/get_draw_props';
+// import { getDrawProps } from '../smile_example/get_draw_props';
+
 import { drawFacePoints } from './util';
 import { getPredictions } from './model';
 
@@ -73,7 +76,60 @@ function drawOnFace(context, face, scale) {
     return;
   }
 
-  const bBox = getBBox(face);
+  const { xCenter, yCenter, width, height, angle } = getDrawProps(face);
+  drawImageCenter(context, decoration, xCenter, yCenter, width, height, angle);
+}
 
-  context.drawImage(decoration, bBox.x, bBox.y, bBox.width, bBox.height);
+function drawImageCenter(ctx, decoration, x, y, w, h, ang) {
+  ctx.rotate(ang);
+
+  const r = Math.sqrt(x ** 2 + y ** 2);
+  const b = getAng(x, y);
+  const xp = r * Math.cos(b - ang);
+  const yp = r * Math.sin(b - ang);
+
+  drawImageCenterBase(ctx, decoration, xp, yp, w, h);
+  ctx.rotate(-ang);
+}
+
+function drawImageCenterBase(ctx, decoration, x, y, w, h) {
+  const xp = x - w / 2;
+  const yp = y - h / 2;
+
+  ctx.drawImage(decoration, xp, yp, w, h);
+}
+
+function drawRectCenter(ctx, x, y, w, h, alp) {
+  ctx.rotate(alp);
+
+  const r = Math.sqrt(x ** 2 + y ** 2);
+  const b = getAng(x, y);
+  const xp = r * Math.cos(b - alp);
+  const yp = r * Math.sin(b - alp);
+
+  drawRectCenterBase(ctx, xp, yp, w, h);
+
+  ctx.rotate(-alp);
+}
+
+function drawRectCenterBase(ctx, x, y, w, h) {
+  const xp = x - w / 2;
+  const yp = y - h / 2;
+
+  ctx.beginPath();
+  ctx.strokeStyle = 'blue';
+  ctx.rect(xp, yp, w, h);
+  ctx.stroke();
+}
+
+function getAng(x, y) {
+  if (y === 0) {
+    return 0;
+  }
+
+  if (x === 0) {
+    return Math.Pi / 2;
+  }
+
+  return Math.atan(y / x);
 }

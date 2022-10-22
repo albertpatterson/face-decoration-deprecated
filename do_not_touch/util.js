@@ -30,3 +30,15 @@ function drawPoint(context, x, y) {
   context.fillStyle = 'green';
   context.fillRect(x - 2, y - 2, 4, 4);
 }
+
+export function getAngle(x, y) {
+  if (y === 0) {
+    return 0;
+  }
+
+  if (x === 0) {
+    return Math.Pi / 2;
+  }
+
+  return Math.atan(y / x);
+}

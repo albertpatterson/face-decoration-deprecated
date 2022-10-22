@@ -23,7 +23,7 @@ export async function getExampleVideo() {
   return video;
 }
 
-const showUser = true;
+const showUser = false;
 export async function getVideo() {
   if (showUser) {
     return await getCameraVideo();
