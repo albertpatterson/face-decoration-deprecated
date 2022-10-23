@@ -7,7 +7,7 @@ import {
 } from './draw';
 import { config } from '../edit/config';
 
-const canvas = document.getElementById('canvas');
+const canvas = document.getElementById('decoration-canvas');
 
 const decoration = document.getElementById('decoration');
 decoration.src = config.imgSrc;
