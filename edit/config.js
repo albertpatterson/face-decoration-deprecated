@@ -1,3 +1,7 @@
+/**
+  Create your own decoration.png and code the logic position it in getDrawProps.js 
+*/
+
 // your code
 import decoration from '../edit/decoration.png';
 import { getDrawProps } from '../edit/get_draw_props';
