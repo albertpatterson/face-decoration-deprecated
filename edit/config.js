@@ -18,12 +18,8 @@ import { getDrawProps } from '../edit/get_draw_props';
 // import decoration from '../sunglasses_example/decoration.png';
 // import { getDrawProps } from '../sunglasses_example/get_draw_props';
 
-// show the user? shows a single video if not
-const showUser = false;
-
 // DO NOT EDIT //
 export const config = {
-  showUser,
   imgSrc: decoration,
   getDrawProps,
 };

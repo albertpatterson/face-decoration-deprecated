@@ -24,11 +24,3 @@ export async function getExampleVideo() {
   video.style.display = 'inline';
   return video;
 }
-
-export async function getVideo() {
-  if (config.showUser) {
-    return await getCameraVideo();
-  }
-
-  return await getExampleVideo();
-}
