@@ -36,13 +36,21 @@ export function getCanvasSize(video) {
   return { height, width, scale };
 }
 
+let currentStream = null;
 export async function takepictures(
   video,
   canvas,
   model,
   stream = true,
-  markKeypoints = false
+  markKeypoints = false,
+  id = null
 ) {
+  if (id !== null && currentStream !== null && id !== currentStream) {
+    return;
+  }
+  id = Date.now();
+  currentStream = id;
+
   const context = canvas.getContext('2d');
 
   const { height, width, scale } = getCanvasSize(video);
@@ -61,7 +69,7 @@ export async function takepictures(
 
   if (stream) {
     requestAnimationFrame(() => {
-      takepictures(video, canvas, model, stream, markKeypoints);
+      takepictures(video, canvas, model, stream, markKeypoints, id);
     });
   }
 }

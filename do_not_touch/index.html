@@ -10,9 +10,9 @@
   <body>
     <h1 id="title">AI Camera</h1>
 
-    <button onclick="launchCamera()" id="launch-button">Launch Camera</button>
+    <button onclick="launchCamera()" id="launch-button">Launch Your Camera</button>
 
-    <div id="camera-app">
+    <div>
       <div id="loading-indicator">
         <h1>Loading</h1>
         <div class="lds-spinner">
@@ -40,7 +40,7 @@
       </div>
       <div class="video-wrapper" id="video-wrapper">
         <video id="video-user"></video>
-        <video id="video-demo" preload loop controls>
+        <video id="video-demo" preload loop muted>
           <source src="./wave.mov" type="video/mp4" />
         </video>
       </div>

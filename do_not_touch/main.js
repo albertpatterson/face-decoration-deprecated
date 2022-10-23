@@ -1,4 +1,4 @@
-import { getVideo } from './camera';
+import { getExampleVideo, getCameraVideo } from './camera';
 import { getModel } from './model';
 import {
   initiateVideoAndCanvas,
@@ -7,36 +7,22 @@ import {
 } from './draw';
 import { config } from '../edit/config';
 
+const canvas = document.getElementById('canvas');
+
 const decoration = document.getElementById('decoration');
 decoration.src = config.imgSrc;
 
-let launched = false;
 window.launchCamera = async function () {
-  try {
-    if (launched) {
-      return;
-    }
-    launched = true;
+  const exampleVideo = await getExampleVideo();
+  exampleVideo.pause();
 
-    startLoading();
-
-    const app = document.getElementById('camera-app');
-    const video = await getVideo();
-    const canvas = document.getElementById('canvas');
-
-    app.style.display = 'block';
-
-    window.addEventListener('resize', () => sizeVideoAndCanvas(video, canvas));
-    await initiateVideoAndCanvas(video, canvas);
-
-    const model = await getModel();
-
-    clearLoading();
-    takepictures(video, canvas, model);
-  } catch (error) {
-    document.getElementById('error').innerText = error.message;
-  }
+  const cameraVideo = await getCameraVideo();
+  await initiateVideoAndCanvas(cameraVideo, canvas);
+  const model = await getModel();
+  takepictures(cameraVideo, canvas, model);
+  clearLaunchButton();
 };
+
 getModel();
 
 (async () => {
@@ -49,19 +35,40 @@ getModel();
   takepictures(rockImg, testCanvas, model, false, true);
   loadingTestCanvas.parentElement.removeChild(loadingTestCanvas);
   testCanvas.style.display = 'flex';
+
+  startVideo();
 })();
+
+async function startVideo() {
+  startLoading();
+
+  const video = await getExampleVideo();
+
+  window.addEventListener('resize', () => sizeVideoAndCanvas(video, canvas));
+  await initiateVideoAndCanvas(video, canvas);
+
+  const model = await getModel();
+
+  clearLoading();
+  showLaunchButton();
+  takepictures(video, canvas, model);
+}
 
 let extraLoadingInfoTimeout = null;
 function startLoading() {
-  clearLaunchButton();
   extraLoadingInfoTimeout = setTimeout(() => {
     document.getElementById('extra-loading-info').style.display = 'block';
   }, 10e3);
 }
 
+function showLaunchButton() {
+  const launchButton = document.getElementById('launch-button');
+  launchButton.style.display = 'block';
+}
+
 function clearLaunchButton() {
   const launchButton = document.getElementById('launch-button');
-  launchButton.parentElement.removeChild(launchButton);
+  launchButton.style.display = 'none';
 }
 
 function clearLoading() {
