@@ -1,4 +1,4 @@
-import { getFacePoint, getAngle } from '../do_not_touch/util';
+import { getPredictionPoint, getAngle } from '../do_not_touch/util';
 
 // keypoints pointed to on the face https://github.com/albertpatterson/face-decoration#keypoints-identified
 
@@ -15,10 +15,10 @@ export function getDrawProps(face) {
   // face object has the properties shown at https://github.com/albertpatterson/face-decoration#keypoints-json
   // getFacePoint method helps to get the desired face point
 
-  const leftEye = getFacePoint(face, 'leftEye');
-  const rightEye = getFacePoint(face, 'rightEye');
-  const leftEar = getFacePoint(face, 'leftEarTragion');
-  const rightEar = getFacePoint(face, 'rightEarTragion');
+  const leftEye = getPredictionPoint(face, 'leftEye');
+  const rightEye = getPredictionPoint(face, 'rightEye');
+  const leftEar = getPredictionPoint(face, 'leftEarTragion');
+  const rightEar = getPredictionPoint(face, 'rightEarTragion');
   const rawWidth = leftEar.x - rightEar.x;
   const width = rawWidth;
 

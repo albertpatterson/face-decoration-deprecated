@@ -1,5 +1,5 @@
 import { config } from '../edit/config';
-import { drawFacePoints } from './util';
+import { drawKeypoints } from './util';
 import { getPredictions } from './model';
 
 export function initiateVideoAndCanvas(video, canvas) {
@@ -54,16 +54,16 @@ export async function takepictures(
   const context = canvas.getContext('2d');
 
   const { height, width, scale } = getCanvasSize(video);
-  const faces = await getPredictions(video, model);
+  const predictions = await getPredictions(video, model);
 
   context.drawImage(video, 0, 0, width, height);
-  for (const face of faces) {
-    drawOnFace(context, face, scale);
+  for (const prediction of predictions) {
+    drawOnVideo(context, prediction, scale);
   }
 
   if (markKeypoints) {
-    for (const face of faces) {
-      drawFacePoints(context, face);
+    for (const prediction of predictions) {
+      drawKeypoints(context, prediction);
     }
   }
 
@@ -76,12 +76,13 @@ export async function takepictures(
 
 const decoration = document.getElementById('decoration');
 
-function drawOnFace(context, face, scale) {
-  if (!face) {
+function drawOnVideo(context, prediction, scale) {
+  if (!prediction) {
     return;
   }
 
-  const { xCenter, yCenter, width, height, angle } = config.getDrawProps(face);
+  const { xCenter, yCenter, width, height, angle } =
+    config.getDrawProps(prediction);
   drawImageCenter(context, decoration, xCenter, yCenter, width, height, angle);
 }
 

@@ -1,5 +1,5 @@
-export function getFacePoint(face, name) {
-  const part = face.keypoints.find((keypoint) => keypoint.name === name);
+export function getPredictionPoint(prediction, name) {
+  const part = prediction.keypoints.find((keypoint) => keypoint.name === name);
   if (!part) {
     throw new Error(`part named "${name} not found`);
   }
@@ -7,21 +7,12 @@ export function getFacePoint(face, name) {
   return part;
 }
 
-const pointNames = [
-  'rightEye',
-  'leftEye',
-  'noseTip',
-  'mouthCenter',
-  'rightEarTragion',
-  'leftEarTragion',
-];
-
-export function drawFacePoints(context, face) {
-  if (!face) {
+export function drawKeypoints(context, prediction) {
+  if (!prediction) {
     return;
   }
 
-  for (const keypoint of face.keypoints) {
+  for (const keypoint of prediction.keypoints) {
     drawPoint(context, keypoint.x, keypoint.y);
   }
 }

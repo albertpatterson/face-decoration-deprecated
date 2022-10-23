@@ -27,12 +27,12 @@ getModel();
 
 (async () => {
   const model = await getModel();
-  const rockImg = document.getElementById('the-rock');
+  const exampleImg = document.getElementById('example');
   const testCanvas = document.getElementById('test-canvas');
   const loadingTestCanvas = document.getElementById('loading-test-canvas');
-  testCanvas.height = rockImg.height;
-  testCanvas.width = rockImg.width;
-  takepictures(rockImg, testCanvas, model, false, true);
+  testCanvas.height = exampleImg.height;
+  testCanvas.width = exampleImg.width;
+  takepictures(exampleImg, testCanvas, model, false, true);
   loadingTestCanvas.parentElement.removeChild(loadingTestCanvas);
   testCanvas.style.display = 'flex';
 
