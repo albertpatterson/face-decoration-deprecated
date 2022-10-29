@@ -10,7 +10,11 @@
   <body>
     <h1 id="title">AI Camera</h1>
 
-    <button onclick="launchCamera()" id="launch-button">Launch Your Camera</button>
+    <div id="view-button-row" class="button-row">
+      <button onclick="launchExample()">Example</button>
+      <button onclick="launchCamera()">Camera</button>
+      <button onclick="launchScreen()">Screen</button>
+    </div>
 
     <div>
       <div id="loading-indicator">
@@ -39,10 +43,6 @@
         <canvas id="decoration-canvas"></canvas>
       </div>
       <div class="video-wrapper" id="video-wrapper">
-        <video id="video-user"></video>
-        <video id="video-demo" preload loop muted>
-          <source src="./wave.mov" type="video/mp4" />
-        </video>
       </div>
     </div>
 

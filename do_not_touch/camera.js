@@ -1,5 +1,3 @@
-import { config } from '../edit/config';
-
 export async function getVideoStream() {
   return await navigator.mediaDevices.getUserMedia({
     video: true,
@@ -7,20 +5,58 @@ export async function getVideoStream() {
   });
 }
 
-const wrapper = document.getElementById('video-wrapper');
-
-export async function getCameraVideo() {
-  const video = document.getElementById('video-user');
-  const stream = await getVideoStream();
-  video.srcObject = stream;
-  video.style.display = 'inline';
-  wrapper.appendChild(video);
-
-  return video;
+export async function getScreenStream() {
+  return await navigator.mediaDevices.getDisplayMedia({
+    video: true,
+    audio: false,
+  });
 }
 
-export async function getExampleVideo() {
-  const video = document.getElementById('video-demo');
-  video.style.display = 'inline';
-  return video;
+const wrapper = document.getElementById('video-wrapper');
+
+let showingVideo = null;
+export async function showExampleVideo() {
+  const exampleUrl = new URL('wave.mov', import.meta.url);
+  const video = document.createElement('video');
+  video.src = exampleUrl.href;
+  video.muted = true;
+  video.preload = true;
+  video.autoplay = true;
+  video.loop = true;
+
+  if (showingVideo) {
+    wrapper.removeChild(showingVideo);
+  }
+
+  wrapper.appendChild(video);
+  showingVideo = video;
+  return showingVideo;
+}
+
+export async function showCameraVideo() {
+  const video = document.createElement('video');
+  const stream = await getVideoStream();
+  video.srcObject = stream;
+
+  if (showingVideo) {
+    wrapper.removeChild(showingVideo);
+  }
+
+  wrapper.appendChild(video);
+  showingVideo = video;
+  return showingVideo;
+}
+
+export async function showScreenVideo() {
+  const video = document.createElement('video');
+  const stream = await getScreenStream();
+  video.srcObject = stream;
+
+  if (showingVideo) {
+    wrapper.removeChild(showingVideo);
+  }
+
+  wrapper.appendChild(video);
+  showingVideo = video;
+  return showingVideo;
 }
