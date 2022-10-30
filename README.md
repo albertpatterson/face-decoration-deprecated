@@ -1,11 +1,8 @@
 # Make Your Own Artificial Intelligence Driven Web App to Decorate Faces
 
-<div style="display: flex; flex-direction:row">
-  <p style="flex:1">
-    The app will capture video and then apply artificial intelligence to decorate your face.
-  </p>
-  <img src="./doc/qrcode.png" height="100px" width="100px">
-</div>
+The app will capture video and then apply artificial intelligence to decorate your face.
+
+<img src="./doc/qrcode.png" height="100px" width="100px" alt="QR code">
 
 Make your own with [REPLIT.com](https://replit.com/@apatterson189/face-decoration)
 
