@@ -1,3 +1,5 @@
+<img src="./doc/qrcode.png" height="100px" width="100px" style="float: right">
+
 # Make Your Own Artificial Intelligence Driven Web App to Decorate Faces
 
 The app will capture video and then apply artificial intelligence to decorate your face.
