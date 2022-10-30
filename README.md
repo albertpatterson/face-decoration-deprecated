@@ -68,4 +68,4 @@ You can use the provided example images and video to check if your calculation i
 
 - Access this document online
   - URL: https://github.com/albertpatterson/face-decoration
-  - Scan this QR code with your phone to access this document online<br><img src="./doc/qrcode.png" height="150px" width="150px" alt="QR code">
+  - Scan this QR code with your phone<br><img src="./doc/qrcode.png" height="150px" width="150px" alt="QR code">
