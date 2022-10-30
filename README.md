@@ -2,8 +2,6 @@
 
 The app will capture video and then apply artificial intelligence to decorate your face.
 
-<img src="./doc/qrcode.png" height="100px" width="100px" alt="QR code">
-
 Make your own with [REPLIT.com](https://replit.com/@apatterson189/face-decoration)
 
 ![Demo](./doc/demo.gif 'Demo')
@@ -65,3 +63,7 @@ Based on the face keypoints, calculate the following to position the decoration
 ![Draw Props](./doc/drawProps.png 'Draw Props')
 
 You can use the provided example images and video to check if your calculation is correct
+
+## Other Resources
+
+- Scan this QR code with your phone to access this document online<br><img src="./doc/qrcode.png" height="150px" width="150px" alt="QR code">
