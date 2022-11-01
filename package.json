@@ -4,19 +4,18 @@
   "description": "Augment the video from a camera with image classification",
   "scripts": {
     "start": "parcel do_not_touch/index.html --no-cache",
-    "printer-friendly-readme": "printer-friendly-readme"
+    "printer-friendly-readme": "npx printer-friendly-readme@latest"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/albertpatterson/AI-Camera"
+    "url": "https://github.com/albertpatterson/face-decoration"
   },
-  "homepage": "https://github.com/albertpatterson/AI-Camera/blob/main/README.md",
+  "homepage": "https://github.com/albertpatterson/face-decoration#readme",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "parcel": "^2.7.0",
-    "printer-friendly-readme": "^1.0.2"
+    "parcel": "^2.7.0"
   },
   "type": "module",
   "devDependencies": {
